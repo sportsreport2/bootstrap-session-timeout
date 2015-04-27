@@ -95,18 +95,22 @@
         // Reset timer on any of these events
         if (!opt.ignoreUserActivity) {
             $(document).on('keyup mouseup mousemove touchend touchmove', function() {
-                startSessionTimer();
-
-                // If they moved the mouse not only reset the counter
-                // but remove the modal too!
-                if( $('#session-timeout-dialog').length > 0 && 
-                    $('#session-timeout-dialog').data('bs.modal').isShown )
+                //Only reset timer if dialog box is not open
+                if(!$("#session-timeout-dialog").data('bs.modal').isShown)
                 {
-                   // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
-                    $('#session-timeout-dialog').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('div.modal-backdrop').remove();
-
+                    startSessionTimer();
+    
+                    // If they moved the mouse not only reset the counter
+                    // but remove the modal too!
+                    if( $('#session-timeout-dialog').length > 0 && 
+                        $('#session-timeout-dialog').data('bs.modal').isShown )
+                    {
+                       // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+                        $('#session-timeout-dialog').modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('div.modal-backdrop').remove();
+    
+                    }
                 }
             });
         }
